@@ -1,0 +1,35 @@
+Dilution Exercise Explanation - Mohit Ambe
+
+Cx = concentration of a certain sample from rack 10
+Vx = volume of a certain sample from rack 10
+Vy = volume of buffer
+Cz = desired concentration of the dilution in rack 7
+
+1. solve the dilution equation for Vx
+GIVEN: Cz = CxVx/Vx+Vy
+Cz(Vx+Vy) = CxVx
+CzVx+CzVy = CxVx
+CzVy = CxVx-CzVx
+CzVy = (Cx-Cz)Vx
+
+CzVy/(Cx-Cz) = Vx
+
+2. Vx + Vy <= 180, but we actually want Vy to be as large as possible
+in order to dilute high concentrations(in the 100s and 1000s) down to only 9 ug/ml
+
+3. to maximize Vy, set Vx+Vy equal to 180
+Vx+Vy = 180
+
+4. so, Vy = 180 - Vx, and solve for Vx again
+Cz(180-Vx)/(Cx-Cz) = Vx
+180-Vx = Vx(Cx-Cz)/Cz
+180 = Vx(Cx-Cz)/Cz + Vx
+180 = Vx( (Cx-Cz)/Cz + 1 )
+
+180 /( (Cx-Cz)/Cz + 1 ) = Vx
+
+this is the final equation to solve for Vx,
+where Cx changes based on the sample being diluted
+and Cz is always 9 ug/ml (or any other desired concentration)
+
+

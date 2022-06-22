@@ -69,27 +69,37 @@ def run(protocol: protocol_api.ProtocolContext):
         well_index = r_10_con.iloc[i, 0]
         b_v = 180 - s_v
 
-        if s_v <= 25:
-            # transfer solution from rack 10 to rack 7
-            p20.pick_up_tip()
-            p20.aspirate(s_v, plates['start'][well_index])
-            p20.dispense(s_v, plates['dilution'][well_index])
-            p20.drop_tip()
+        # if s_v <= 20:
+        #     transfer_and_dilute(s_v, b_v)
+        # else:
+        #     s_v = 20
+        #     b_v = ((s_v * con) / f_con) - s_v
+        #     transfer_and_dilute(s_v, b_v)
+        
+        # the if statement below is an optimized version of this commented if block
+        if s_v > 20:
+            s_v = 20
+            b_v = ((s_v * con) / f_con) - s_v
+        print(well_index, s_v, b_v)
 
-            # transfer buffer from reservoir to rack 7
-            # needs to be done in a loop because a p20_single_gen2 pipette can only hold 20 uL
-            # and buffer volume needed is more than 20uL
-            # using only one tip here because the tip will only be aspirating from one well(buffer)
-            p20.pick_up_tip()
-            while b_v > 0:
-                if b_v > 20:
-                    p20.aspirate(20, plates['reservoir'][well_index])
-                    p20.dispense(20, plates['dilution'][well_index])
-                    b_v -= 20
-                else:
-                    p20.aspirate(b_v, plates['reservoir'][well_index])
-                    p20.dispense(b_v, plates['dilution'][well_index])
-                    break
-            p20.drop_tip()
-        else:
-            print("****Was not able to dilute sample", well_index, ": sample volume is greater than pipette size****")
+        # transfer solution from rack 10 to rack 7
+        p20.pick_up_tip()
+        p20.aspirate(s_v, plates['start'][well_index])
+        p20.dispense(s_v, plates['dilution'][well_index])
+        p20.drop_tip()
+
+        # transfer buffer from reservoir to rack 7
+        # needs to be done in a loop because a p20_single_gen2 pipette can only hold 20 uL
+        # and buffer volume needed is more than 20uL
+        # using only one tip here because the tip will only be aspirating from one well(buffer)
+        p20.pick_up_tip()
+        while b_v > 0:
+              if b_v > 20:
+                p20.aspirate(20, plates['reservoir'][well_index])
+                p20.dispense(20, plates['dilution'][well_index])
+                b_v -= 20
+              else:
+                p20.aspirate(b_v, plates['reservoir'][well_index])
+                p20.dispense(b_v, plates['dilution'][well_index])
+                break
+        p20.drop_tip()

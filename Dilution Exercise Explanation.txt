@@ -32,4 +32,21 @@ this is the final equation to solve for Vx,
 where Cx changes based on the sample being diluted
 and Cz is always 9 ug/ml (or any other desired concentration)
 
+SPECIAL CASE:
+
+
+for well A1, the dilution would not be possible using this equation because
+the sample volume would become 45 uL, which is too large of a volume for the pipette to transfer.
+
+Instead of maximizing the total volume to be 180, lets maximize the sample volume to be 20, and then recalculate the buffer volume
+Vx = 20
+Cz = CxVx/Vx+Vy
+Cz(Vx+Vy) = CxVx
+Vx+Vy = CxVx/Cz
+Vy = (CxVx/Cz) - Vx
+
+
+Vy = (20Cx/Cz) - 20
+
+This equation now creates valid volumes of buffer to dilute samples that previously could not have been diluted.
 
